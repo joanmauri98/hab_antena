@@ -1,0 +1,33 @@
+basestation:
+  id: "HABANTENA01"
+  appenders:
+    gpsappender:
+      file: '/data/hab_antena/logs/gpsdata.log'
+      regexselect: '\[.*\]\|(.*)\|(.*),(.*)\|.*\|'
+      mapping:
+        - "height"
+        - "lat"
+        - "lon"
+mqtt:
+  url: "[mqtt_host]"
+  topic: "hablistener"
+  port: 1883
+  user: "habmaps"
+  password: "[cnosultar]"
+  alive: 60
+frame:
+  # Definición de la trama donde
+  # $time : Es la hora expresada en HHMMSS
+  # $pos : Es la posición gps del hab expresada en lat,lon
+  # $id  : Es el identificador del hab
+  format: "$time|AlturaGPS|$pos|VelocidadHorizontalGPS|TempBMP|Presion|AlturaBarometrica|radiacio|ax|ay|az|gx|gy|gz|ox|oy|oz|TempMPU|TempDallas|$id|"
+  # Fichero donde se van insertando las trazas de LoRa
+  file: "/data/hab_antena/logs/recivedData.log"
+  # Cada cuantos segundos se mira el fichero de envio
+  refresh: 1
+  # Filtro de hab. Listado de expresiones regulares de identificadores $id de hab que se
+  # contemplarán. Cualquier identificador que no cumpla una de estas regex no será 
+  # considerado
+  habidfilter:
+    #- .*   #Cualquier id de hab es válido
+    - HABCAT.*

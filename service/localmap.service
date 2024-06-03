@@ -1,0 +1,12 @@
+[Unit]
+Description=Local Map Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /data/hab_antena/localMapService.py
+Restart=always
+RestartSec=0
+
+[Install]
+WantedBy=multi-user.target

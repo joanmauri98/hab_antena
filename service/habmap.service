@@ -1,0 +1,12 @@
+[Unit]
+Description=HABMAP Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/data/hab_antena/habMapService.sh
+Restart=always
+RestartSec=0
+
+[Install]
+WantedBy=multi-user.target
